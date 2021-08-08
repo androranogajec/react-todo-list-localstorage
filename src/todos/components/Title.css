@@ -1,0 +1,7 @@
+.titleContent {
+    display: flex;
+    justify-content: space-between
+}
+.titleButton {
+    width: 67.3px;
+}

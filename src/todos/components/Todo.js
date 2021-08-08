@@ -2,22 +2,7 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./Todo.css";
 import Title from "./Title";
-
-function TodoRow(props) {
-  const [isTodoRow, setIsTodoRow] = useState(true);
-  const { text, id } = props;
-  console.log(text, id);
-  return (
-    <>
-      {text}
-      {/*  <input /> */}
-      <button>r</button>
-      <button>c</button>
-      <button>d</button>
-    </>
-  );
-}
-
+import TodoRow from "./TodoRow";
 function Todo(props) {
   const [input, setInput] = useState("");
   const [todo, setTodo] = useState([]);
@@ -33,13 +18,14 @@ function Todo(props) {
     event.preventDefault();
     setTodo([...todo, { text: input, completed: false, id: uuidv4() }]);
   }
-  console.log(todo)
   return (
-    <div className="a">
-      <form className="todo">
+    <>
+      <form>
         <div onClick={handleIsTitle}>
-          {isTitle ? <Title /> : "click-to-set-a-title"}
+          {isTitle ? <Title /> : "double-click-to-set-a-title"}
         </div>
+      </form>
+      <form>
         <input onChange={handleInput} />
         <button className="todoButton" onClick={handleTodo}>
           todo
@@ -51,7 +37,7 @@ function Todo(props) {
           </div>
         ))}
       </form>
-    </div>
+    </>
   );
 }
 

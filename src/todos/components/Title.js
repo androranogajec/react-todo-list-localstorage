@@ -14,11 +14,7 @@ function Title(props) {
     handleIsTitle();
   }
   function handleIsTitle() {
-    if (isTitle) {
-      return setIsTitle(false);
-    } else {
-      return setIsTitle(true);
-    }
+    setIsTitle(previousValue => !previousValue)
   }
   return (
     <div className="titleContent">
@@ -31,8 +27,8 @@ function Title(props) {
           style={{ border: "none", outline: "none", fontSize: "14px" }}
         />
       )}
-      <button className="titleButton" onClick={handleTitle}>
-        {isTitle ? "edit" : "save"}
+      <button  className="titleButton" onClick={handleTitle}>
+        {isTitle ? "rename" : "save"}
       </button>
     </div>
   );

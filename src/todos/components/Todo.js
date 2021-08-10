@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./Todo.css";
 import Title from "./Title";
 import TodoRow from "./TodoRow";
+
 function Todo(props) {
   const [input, setInput] = useState("");
   const [todo, setTodo] = useState([]);
@@ -14,9 +15,14 @@ function Todo(props) {
   function handleInput(event) {
     setInput(event.target.value);
   }
+
+  function resetInputValue() {
+    setInput("");
+  }
   function handleTodo(event) {
     event.preventDefault();
-    setTodo([...todo, { text: input, completed: false, id: uuidv4() }]);
+    setTodo([...todo, { text: input, completed: false, id: uuidv4()}]);
+    resetInputValue();
   }
   return (
     <>
@@ -26,14 +32,19 @@ function Todo(props) {
         </div>
       </form>
       <form>
-        <input onChange={handleInput} />
+        <input onChange={handleInput} value={input} />
         <button className="todoButton" onClick={handleTodo}>
           todo
         </button>
-        {todo.map((todo) => (
-          <div key={todo.id}>
+        {todo.map((todoRow) => (
+          <div key={todoRow.id}>
             {" "}
-            <TodoRow id={todo.id} text={todo.text} />
+            <TodoRow
+              todo={todo}
+              setTodo={setTodo}
+              id={todoRow.id}
+              text={todoRow.text}
+            />
           </div>
         ))}
       </form>

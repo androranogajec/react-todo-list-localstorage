@@ -5,6 +5,7 @@ function TodoRow(props) {
   const { text, id, todo, setTodo } = props;
   const [isTodoRow, setIsTodoRow] = useState(false);
   const [input, setInput] = useState(text);
+  const [isCompleted, setIsCompleted] = useState();
 
   function handleInput(event) {
     setInput(event.target.value);
@@ -18,6 +19,7 @@ function TodoRow(props) {
   function findTodoIndexById(state, id) {
     return state.indexOf(id);
   }
+
   function handleRename(event) {
     event.preventDefault();
     handleIsTodoRow();
@@ -30,43 +32,44 @@ function TodoRow(props) {
     };
     setTodo(todoCopy);
   }
-
-  function handleCompleted(event,arg) {
+  function handleCompleted(event) {
     event.preventDefault();
+    setIsCompleted((previousValue) => !previousValue);
     let todoCopy = todo.map((todo) => todo);
     let todoId = findTodoId(todo);
     let todoIndex = findTodoIndexById(todo, todoId);
-    if(todoCopy[todoIndex].completed){
-      todoCopy[todoIndex] = Object.assign(todoCopy[todoIndex], {
-        completed: false
-      });
-      setTodo(todoCopy)
-    }else{
-      todoCopy[todoIndex] = Object.assign(todoCopy[todoIndex], {
-        completed: true
-      });
-      setTodo(todoCopy)
-    }
-   
+    todoCopy[todoIndex] = Object.assign(todoCopy[todoIndex], {
+      completed: isCompleted,
+    });
+    setTodo(todoCopy);
+  }
+  function handleDelete(event){
+    event.preventDefault()
+    let todoCopy = todo.map((todo) => todo);
+    let todoId = findTodoId(todo);
+    let todoIndex = findTodoIndexById(todo, todoId);
+    todoCopy.splice(todoIndex,1)
+    setTodo(todoCopy)
+
   }
   console.log(todo)
   return (
     <div className="todoRow" key={id}>
-      <div>
+      <div style={{ textDecoration: isCompleted ? "line-through" : "none" }}>
         {isTodoRow ? (
-          <input
-            style={{ border: "none", outline: "none" }}
+          <input 
+            style={{ border: "none", outline: "none"}}
             value={input}
             onChange={handleInput}
           />
         ) : (
-          text
+          <span>{text}</span>
         )}
       </div>
       <div>
         <button onClick={handleRename}>r</button>
         <button onClick={handleCompleted}>c</button>
-        <button>d</button>
+        <button onClick={handleDelete}>d</button>
       </div>
     </div>
   );

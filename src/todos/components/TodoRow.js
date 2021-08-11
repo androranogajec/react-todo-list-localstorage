@@ -18,7 +18,6 @@ function TodoRow(props) {
   function findTodoIndexById(state, id) {
     return state.indexOf(id);
   }
-  console.log(todo)
   function handleRename(event) {
     event.preventDefault();
     handleIsTodoRow();
@@ -31,6 +30,26 @@ function TodoRow(props) {
     };
     setTodo(todoCopy);
   }
+
+  function handleCompleted(event,arg) {
+    event.preventDefault();
+    let todoCopy = todo.map((todo) => todo);
+    let todoId = findTodoId(todo);
+    let todoIndex = findTodoIndexById(todo, todoId);
+    if(todoCopy[todoIndex].completed){
+      todoCopy[todoIndex] = Object.assign(todoCopy[todoIndex], {
+        completed: false
+      });
+      setTodo(todoCopy)
+    }else{
+      todoCopy[todoIndex] = Object.assign(todoCopy[todoIndex], {
+        completed: true
+      });
+      setTodo(todoCopy)
+    }
+   
+  }
+  console.log(todo)
   return (
     <div className="todoRow" key={id}>
       <div>
@@ -46,7 +65,7 @@ function TodoRow(props) {
       </div>
       <div>
         <button onClick={handleRename}>r</button>
-        <button>c</button>
+        <button onClick={handleCompleted}>c</button>
         <button>d</button>
       </div>
     </div>

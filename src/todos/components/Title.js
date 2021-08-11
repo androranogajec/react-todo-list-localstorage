@@ -13,6 +13,7 @@ function Title(props) {
     setTitle([{ text: input }]);
     handleIsTitle();
   }
+  console.log(title)
   function handleIsTitle() {
     setIsTitle(previousValue => !previousValue)
   }

@@ -28,7 +28,7 @@ function Title(props) {
           style={{ border: "none", outline: "none", fontSize: "14px" }}
         />
       )}
-      <button className="titleButton" onClick={handleTitle}>
+      <button style={{cursor: 'pointer'}} className="titleButton" onClick={handleTitle}>
         {isTitle ? "rename" : "save"}
       </button>
     </div>

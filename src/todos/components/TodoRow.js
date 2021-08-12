@@ -32,9 +32,12 @@ function TodoRow(props) {
     };
     setTodo(todoCopy);
   }
+  function handleIsCompleted(){
+    setIsCompleted((previousValue) => !previousValue);
+  }
   function handleCompleted(event) {
     event.preventDefault();
-    setIsCompleted((previousValue) => !previousValue);
+    handleIsCompleted()
     let todoCopy = todo.map((todo) => todo);
     let todoId = findTodoId(todo);
     let todoIndex = findTodoIndexById(todo, todoId);
@@ -67,9 +70,9 @@ function TodoRow(props) {
         )}
       </div>
       <div>
-        <button onClick={handleRename}>r</button>
-        <button onClick={handleCompleted}>c</button>
-        <button onClick={handleDelete}>d</button>
+        <button style={{cursor: 'pointer'}} onClick={handleRename}>r</button>
+        <button style={{cursor: 'pointer'}} onClick={handleCompleted}>c</button>
+        <button style={{cursor: 'pointer'}} onClick={handleDelete}>d</button>
       </div>
     </div>
   );

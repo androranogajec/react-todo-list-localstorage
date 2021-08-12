@@ -1,8 +1,1 @@
-const todos = []
-const todo = [
-    {
-        id: "",
-        name: "",
-        completed: false
-    }
-]
+const DUMMY_DATA = [];

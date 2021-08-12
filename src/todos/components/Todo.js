@@ -4,6 +4,8 @@ import "./Todo.css";
 import Title from "./Title";
 import TodoRow from "./TodoRow";
 
+
+
 function Todo(props) {
   const [input, setInput] = useState("");
   const [todo, setTodo] = useState([]);
@@ -21,9 +23,14 @@ function Todo(props) {
   }
   function handleTodo(event) {
     event.preventDefault();
-    setTodo([...todo, { text: input, completed: false, id: uuidv4()}]);
+    setTodo([
+      ...todo,
+      { text: input, completed: false, id: uuidv4(), creator: "u1" },
+    ]);
     resetInputValue();
   }
+
+  console.log(todo);
   return (
     <>
       <form>
@@ -33,7 +40,11 @@ function Todo(props) {
       </form>
       <form>
         <input onChange={handleInput} value={input} />
-        <button className="todoButton" onClick={handleTodo}>
+        <button
+          style={{ cursor: "pointer" }}
+          className="todoButton"
+          onClick={handleTodo}
+        >
           todo
         </button>
         {todo.map((todoRow) => (

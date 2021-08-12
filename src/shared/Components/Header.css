@@ -1,0 +1,10 @@
+.a {
+    grid-area: a;
+    display: flex;
+    justify-content: space-between;
+  }
+  .b {
+    grid-area: b;
+    margin-left: 65px;
+    grid-column: 2;
+  }

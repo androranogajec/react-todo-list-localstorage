@@ -1,7 +1,5 @@
 .container {
-  min-width: 100vh;
   display: grid;
-  grid-gap: 10px;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto;
   grid-template-areas:
@@ -16,6 +14,7 @@
 }
 .b {
   grid-area: b;
+  margin-left: 65px;
   grid-column: 2;
 }
 .c {

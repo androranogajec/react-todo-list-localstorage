@@ -1,4 +1,4 @@
-import "./App.css";
+import s from "./App.module.css";
 import React, { useState } from "react";
 import {
   BrowserRouter as Router,
@@ -7,40 +7,26 @@ import {
   Switch,
   Link,
 } from "react-router-dom";
-import Todo from "./todos/components/Todo";
+
 import Homescreen from "./shared/Components/Homescreen";
 import Header from "./shared/Components/Header";
 import Auth from "./user/pages/Auth";
-import { v4 as uuidv4 } from "uuid";
+import Todolist from "./todos/components/Todolist";
+
 function App(props) {
-  const [todoList, setTodoList] = useState([]);
-
-  const handleTodoList = () => {
-    setTodoList([...todoList, <Todo key={uuidv4()} />]);
-  };
-
   return (
     <Router>
-      <div className="container">
+      <div className={s.container}>
         <Header />
         <Switch>
           <Route path="/" exact>
-            <Homescreen />
+            <Todolist />
           </Route>
           <Route path="/auth" exact>
             <Auth />
           </Route>
           <Route path="/:userId" exact>
-            <div className="b">
-              <button style={{ cursor: "pointer" }} onClick={handleTodoList}>
-                Add
-              </button>
-            </div>
-            <div className="c">
-              {todoList.map((todo, index) => (
-                <div key={index}>{todo}</div>
-              ))}
-            </div>
+            <Homescreen />
           </Route>
         </Switch>
       </div>

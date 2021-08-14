@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "./TodoRow.css";
+import s from "./TodoRow.module.css";
 
 function TodoRow(props) {
   const { text, id, todo, setTodo } = props;
   const [isTodoRow, setIsTodoRow] = useState(false);
   const [input, setInput] = useState(text);
   const [isCompleted, setIsCompleted] = useState();
+
+ 
 
   function handleInput(event) {
     setInput(event.target.value);
@@ -19,6 +21,8 @@ function TodoRow(props) {
   function findTodoIndexById(state, id) {
     return state.indexOf(id);
   }
+ 
+  
 
   function handleRename(event) {
     event.preventDefault();
@@ -55,9 +59,9 @@ function TodoRow(props) {
     setTodo(todoCopy)
 
   }
-  console.log(todo)
+ 
   return (
-    <div className="todoRow" key={id}>
+    <div className={s.container} key={id}>
       <div style={{ textDecoration: isCompleted ? "line-through" : "none" }}>
         {isTodoRow ? (
           <input 

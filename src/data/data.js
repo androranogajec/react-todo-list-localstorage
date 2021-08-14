@@ -1,1 +1,1 @@
-const DUMMY_DATA = [];
+let myStorage = window.localStorage;

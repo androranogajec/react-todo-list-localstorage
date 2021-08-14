@@ -1,19 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import "./Todo.css";
+import s from "./Todo.module.css";
 import Title from "./Title";
 import TodoRow from "./TodoRow";
-
-
 
 function Todo(props) {
   const [input, setInput] = useState("");
   const [todo, setTodo] = useState([]);
-  const [isTitle, setIsTitle] = useState(false);
 
-  function handleIsTitle() {
-    setIsTitle(true);
-  }
   function handleInput(event) {
     setInput(event.target.value);
   }
@@ -29,20 +23,17 @@ function Todo(props) {
     ]);
     resetInputValue();
   }
-
-  console.log(todo);
+  console.log(todo)
   return (
-    <>
+    <div className={s.container}>
       <form>
-        <div onClick={handleIsTitle}>
-          {isTitle ? <Title /> : "double-click-to-set-a-title"}
-        </div>
+        <Title />
       </form>
       <form>
-        <input onChange={handleInput} value={input} />
+        <input className={s.input} onChange={handleInput} value={input} />
         <button
           style={{ cursor: "pointer" }}
-          className="todoButton"
+          className={s.todoButton}
           onClick={handleTodo}
         >
           todo
@@ -59,7 +50,7 @@ function Todo(props) {
           </div>
         ))}
       </form>
-    </>
+    </div>
   );
 }
 

@@ -1,7 +1,7 @@
-.titleContent {
+.container {
     display: flex;
     justify-content: space-between
 }
-.titleButton {
+.button {
     width: 67.3px;
 }

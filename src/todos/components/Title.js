@@ -6,27 +6,26 @@ function Title(props) {
   const [isTitle, setIsTitle] = useState(false);
 
   let myStorage = window.localStorage;
-
-  //run after the first render
   useEffect(() => {
-    let storedIsTitle = myStorage.getItem("istitle");
-    let storedTitle = myStorage.getItem("title");
-    let storedInput = myStorage.getItem("input");
+    let storedIsTitle = myStorage.getItem("title-istitle");
+    let storedTitle = myStorage.getItem("title-title");
+    let storedInput = myStorage.getItem("title-input");
     setInput(storedInput);
     setTitle(storedTitle);
-    if (storedTitle.length === 0) {
-      setIsTitle(!storedIsTitle);
-    } else {
-      setIsTitle(storedIsTitle);
-    }
   }, []);
-
-  //run after every render
   useEffect(() => {
-    myStorage.setItem("title", title);
-    myStorage.setItem("input", input);
-    myStorage.setItem("istitle", isTitle);
-  });
+    function isSetLocalStorageInitStateTitle(){
+      if(input === null && title === null){
+        setTitle('')
+        setInput('')
+      }
+    }
+    isSetLocalStorageInitStateTitle()
+    myStorage.setItem("title-title", title);
+    myStorage.setItem("title-input", input);
+    myStorage.setItem("title-istitle", isTitle);
+  },[title,input,isTitle]);
+
   function handleIsTitle() {
     setIsTitle((previousValue) => !previousValue);
   }

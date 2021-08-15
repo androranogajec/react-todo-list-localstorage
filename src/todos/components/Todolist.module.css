@@ -1,12 +1,14 @@
-.content {
-  width: 100vw;
-  grid-column: 1 / 4;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+.container {
+   width: 100vw;
+   display: flex;
+   justify-content: center;
 }
-
-.button {
-  margin-left: 30%
+.todolist {
+    width: 250px;
+}
+.input {
+    width: 176px;
+}
+.todoButton {
+    width: 65px;
 }

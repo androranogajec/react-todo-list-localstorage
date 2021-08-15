@@ -1,62 +1,85 @@
 import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
 import s from "./Todo.module.css";
-import Title from "./Title";
-import Todorow from './TodoRow'
-//input edi
-function Todo(props) {
-  const [input, setInput] = useState("");
-  const [todoList, setTodoList] = useState([]);
-  
+
+function TodoRow(props) {
+  const { text, id, todo, setTodo, completed } = props;
+  const [isTodoRow, setIsTodoRow] = useState(false);
+  const [input, setInput] = useState(text);
+  const [isCompleted, setIsCompleted] = useState(completed);
+
+ 
+
   function handleInput(event) {
     setInput(event.target.value);
   }
-
-  function resetInputValue() {
-    setInput("");
+  function handleIsTodoRow() {
+    setIsTodoRow((previousValue) => !previousValue);
   }
-  function handleTodo() {
-    let newTodo  = { text: input, completed: false, id: uuidv4(), creator: "u1" }
-    setTodoList((prevTodos)=>{
-      return [
-        ...prevTodos,
-        newTodo,
-      ]
+  function findTodoId(state) {
+    return state.find((todo) => todo.id === id);
+  }
+  function findTodoIndexById(state, id) {
+    return state.indexOf(id);
+  }
+ 
+  
+
+  function handleRename(event) {
+    event.preventDefault();
+    handleIsTodoRow();
+    let todoCopy = [...todo];
+    let todoId = findTodoId(todo);
+    let todoIndex = findTodoIndexById(todo, todoId);
+    todoCopy[todoIndex] = {
+      ...todoCopy[todoIndex],
+      text: input,
+    };
+    setTodo(todoCopy);
+  }
+  function handleIsCompleted(){
+    setIsCompleted((previousValue) => !previousValue);
+  }
+  function handleCompleted(event) {
+    event.preventDefault();
+    handleIsCompleted()
+    let todoCopy = todo.map((todo) => todo);
+    let todoId = findTodoId(todo);
+    let todoIndex = findTodoIndexById(todo, todoId);
+    todoCopy[todoIndex] = Object.assign(todoCopy[todoIndex], {
+      completed: isCompleted,
     });
-    resetInputValue();
+    setTodo(todoCopy);
   }
+  function handleDelete(event){
+    event.preventDefault()
+    let todoCopy = todo.map((todo) => todo);
+    let todoId = findTodoId(todo);
+    let todoIndex = findTodoIndexById(todo, todoId);
+    todoCopy.splice(todoIndex,1)
+    setTodo(todoCopy)
 
+  }
+ 
   return (
-    <div className={s.container}>
-      <form>
-        <Title />
-      </form>
-      <form>
-        <input className={s.input} onChange={handleInput} value={input} />
-        <button
-          type='button'
-          style={{ cursor: "pointer" }}
-          className={s.todoButton}
-          onClick={handleTodo}
-        >
-          todo
-        </button>
-        {todoList.map((todo) => (
-          <Todorow
-              key={todo.id}
-              inputParent={input}
-              setInputParent={setInput}
-              todo={todoList}
-              setTodo={setTodoList}
-              id={todo.id}
-              text={todo.text}
-              handleTodo={handleTodo}
-              completed={todo.completed}
-            />
-        ))}
-      </form>
+    <div className={s.container} key={id}>
+      <div style={{ textDecoration: isCompleted ? "line-through" : "none" }}>
+        {isTodoRow ? (
+          <input 
+            style={{ border: "none", outline: "none"}}
+            value={input}
+            onChange={handleInput}
+          />
+        ) : (
+          <span>{text}</span>
+        )}
+      </div>
+      <div>
+        <button style={{cursor: 'pointer'}} onClick={handleRename}>r</button>
+        <button style={{cursor: 'pointer'}} onClick={handleCompleted}>c</button>
+        <button style={{cursor: 'pointer'}} onClick={handleDelete}>d</button>
+      </div>
     </div>
   );
 }
 
-export default Todo;
+export default TodoRow;

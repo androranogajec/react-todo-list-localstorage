@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import s from "./Todo.module.css";
 import Title from "./Title";
-import TodoRow from "./TodoRow";
-
+import Todorow from './TodoRow'
+//input edi
 function Todo(props) {
   const [input, setInput] = useState("");
-  const [todo, setTodo] = useState([]);
-
+  const [todoList, setTodoList] = useState([]);
+  
   function handleInput(event) {
     setInput(event.target.value);
   }
@@ -15,15 +15,17 @@ function Todo(props) {
   function resetInputValue() {
     setInput("");
   }
-  function handleTodo(event) {
-    event.preventDefault();
-    setTodo([
-      ...todo,
-      { text: input, completed: false, id: uuidv4(), creator: "u1" },
-    ]);
+  function handleTodo() {
+    let newTodo  = { text: input, completed: false, id: uuidv4(), creator: "u1" }
+    setTodoList((prevTodos)=>{
+      return [
+        ...prevTodos,
+        newTodo,
+      ]
+    });
     resetInputValue();
   }
-  console.log(todo)
+
   return (
     <div className={s.container}>
       <form>
@@ -32,22 +34,25 @@ function Todo(props) {
       <form>
         <input className={s.input} onChange={handleInput} value={input} />
         <button
+          type='button'
           style={{ cursor: "pointer" }}
           className={s.todoButton}
           onClick={handleTodo}
         >
           todo
         </button>
-        {todo.map((todoRow) => (
-          <div key={todoRow.id}>
-            {" "}
-            <TodoRow
-              todo={todo}
-              setTodo={setTodo}
-              id={todoRow.id}
-              text={todoRow.text}
+        {todoList.map((todo) => (
+          <Todorow
+              key={todo.id}
+              inputParent={input}
+              setInputParent={setInput}
+              todo={todoList}
+              setTodo={setTodoList}
+              id={todo.id}
+              text={todo.text}
+              handleTodo={handleTodo}
+              completed={todo.completed}
             />
-          </div>
         ))}
       </form>
     </div>

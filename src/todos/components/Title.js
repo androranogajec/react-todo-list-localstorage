@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import s from "./Title.module.css";
+import useLocalStorage from "../../data/useLocalStorageTodolist";
+
 function Title(props) {
   const [input, setInput] = useState("");
   const [title, setTitle] = useState("");
